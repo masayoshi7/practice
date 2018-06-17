@@ -1,0 +1,20 @@
+table#confirmTable {
+    border:1px solid #000;
+}
+
+table#confirmTable tr {
+    border:1px solid #000;
+}
+
+table#confirmTable tr td {
+    border:1px solid #000;
+}
+
+.buttons {
+    display: table;
+}
+
+.buttons form {
+    display: table-cell;
+    padding: 10px;
+}

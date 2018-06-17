@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>検索文字列 送信フォーム</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <main>
+            <section>
+                <h1>検索文字列 送信フォーム</h1>
+                <form action="check.php" method="post">
+                    <table id="form-table">
+                        <tr>
+                            <td><textarea name="user_input_text" cols="80" rows="10"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="check_type_number">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="buttons">
+                        <input type="submit" value="送信" class="send-button">
+                    </div>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,181 @@
+@CHARSET "UTF-8";
+
+table.table1 {
+	align:center;
+	border-collapse: collapse;
+	background-color: #999999;
+	border: 1px #999999 solid;
+
+}
+
+td.td1 {
+	width: 200px;
+	height:30px;
+	border: 1px #999999 solid;
+	padding: 8px;
+	background-color: #EBEBEB;
+}
+
+td.td2 {
+	width: 250px;
+	border: 1px #999999 solid;
+	padding: 8px;
+	background-color: #FFFFFF;
+}
+
+td.td3 {
+	text-align: center;
+}
+
+td.td5 {
+	border: 1px #999999 solid;
+	padding: 8px;
+	background-color: #EBEBEB;
+	text-align: center;
+}
+
+td.td6 {
+	border: 1px #999999 solid;
+	padding: 8px;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+
+td.td7 {
+	text-align: center;
+	border: 1px #999999 solid;
+	padding: 8px;
+}
+
+tr.tr1 {
+	width: 200px;
+	height:30px;
+	background-color: #FFFFFF;
+}
+
+tr.tr2 {
+	background-color: #EBEBEB;
+}
+
+tr.tr3 {
+	background-color: #F0AA68;
+}
+
+tr.tr4 {
+	height: 35px;
+}
+
+font.font1 {
+	color: #FF0000
+}
+p.soldout_style:before{
+	content: "SOLD OUT" ;
+	color  :  #ff0000;
+	font-weight:bold;
+	font-size:50px;
+	position: relative;
+bottom: 10px;
+ transform: rotate(10deg);
+ padding-bottom:100px;
+}
+input.botton{
+	style:color:#fff;
+	background-color:#49a9d4;
+	font-size:15;
+	width:150px;
+	height:30px;
+	border-radius:25px;
+	box-shadow:2px 2px #555;
+
+}
+
+h1.a {
+font-size:0.9em;
+margin:0px;
+color  :  #ff0000;
+}
+
+div.a{
+ background-color:#49a9d4;
+position: absolute;
+top: px;
+left: 600px;
+
+}
+
+#site_title {
+width: 898px;
+margin: 0 auto 10px auto;
+}
+
+#page {
+width: 918px;
+margin: 0 auto 0 auto;
+background-color: rgb(255,255,255);
+}
+.example1{
+	margin-bottom:-147px;
+}
+
+#aaa{
+    width:100%;
+	padding:20px;
+	background-color:#49a9d4;
+	border-bottom:1px solid #CCC;
+	color: #FFF;
+	position:fixed;
+	top:0;
+	left:0;
+    
+}  
+div.aaa {
+   position: absolute;
+   top: 10px;
+   right: 30000px;
+}
+
+#a-box {
+	height:150px;
+	border-bottom: 1px solid #FF9900;
+ 	position: relative;
+	bottom: 45px;
+	background-image: url("../image/autumnheader1.jpg");  
+
+}
+h1.h1{
+	position: absolute;
+	top:60;
+	left:150;
+}
+img#right{
+	align:right;
+}
+div.acount{
+	 position: absolute;
+   top: 10px;
+   right: 300px;
+}
+
+.aaaa{
+	margin:70px auto;
+  background:#99CCFF;
+  width:347px;
+  text-align:center;
+  padding:40px;
+  .rounded;
+  border-radius:25px;
+  opacity: 0.9;
+
+}
+.aaaaa{
+	margin:70px auto;
+  width:387px;
+  text-align:center;
+
+  border-radius:25px;
+  opacity: 0.9;
+ position: absolute;
+   top: 10px;
+   right: 300px;
+}
+

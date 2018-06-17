@@ -1,0 +1,5 @@
+php_value include_path "/home/lessons/public_html/zf1/ZendFramewok/library"
+
+RewriteEngine on
+
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php

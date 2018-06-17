@@ -1,0 +1,108 @@
+table{
+  border-collapse:collapse;
+  margin:0 auto;
+  font-size: 14px;
+}
+
+th{
+  color:#005ab3;
+}
+
+td{
+  border-bottom:1px dashed #999;
+}
+
+th,tr:last-child td{
+  border-bottom:2px solid #005ab3;
+}
+
+td,th{
+  padding:10px;
+}
+
+header {
+    background-color: #6495ed;
+    color: #FFF;
+}
+
+.errormsg {
+    color: #ff7f50;
+}
+
+.updates {
+    margin-bottom: 10px;
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+main {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+footer {
+    background-color: #000;
+    color: #FFF;
+}
+
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1;
+}
+
+#modalWindow {
+    width: 750px;
+    height: 400px;
+    position: fixed;
+    border: 2px solid #000080;
+    background-color: #FFF;
+    display: none;
+    z-index: 2
+}
+
+body {
+    text-align: center;
+}
+
+.open {
+    width: 100px;
+    height: 50px;
+    font-size: 1.2em;
+    color: #000080;
+    background-color: #FFF;
+    border: solid 2px #000080;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+.open:hover {
+    background: #00bfff;
+    color: #FFF;
+}
+
+.delete {
+    width: 100px;
+    height: 50px;
+    font-size: 1.2em;
+    color: #dc143c;
+    background-color: #FFF;
+    border: solid 2px #dc143c;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+.delete:hover {
+    background: #ff4500;
+    color: #FFF;
+}
+
+.deleteForm {
+    display: inline;
+}

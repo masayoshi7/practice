@@ -1,0 +1,133 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>人口＆名産</title>
+    <link rel="stylesheet" type="text/css" href="../../application/views/scripts/top/css/top.css">
+</head>
+<body>
+    <header>
+        <h2>都道府県別人口と名産品</h2>
+    </header>
+    <main>
+        <div class="errormsg">
+            <?php if (isset($this->errormsg)) {
+                    echo nl2br($this->errormsg);
+            }
+            ?>
+        </div>
+        <div>
+            <?php if (isset($this->selectCountmsg)) {
+                    echo $this->escape($this->selectCountmsg);
+            }
+            ?>
+        </div>
+        <table>
+            <tr>
+                <th>
+                    都道府県
+                </th>
+                <th>
+                    人口(万人)
+                </th>
+                <th>
+                    名産
+                </th>
+                <th>
+                    登録日時
+                </th>
+                <th>
+                    更新日時
+                </th>
+            </tr>
+            <?php
+            if (isset($this->stmt)) {
+                foreach ($this->stmt as $value) {
+            ?>
+                    <tr>
+                        <input type="hidden" value="<?php echo $this->escape($value['id']);?>" class="id" />
+                        <th class="region">
+                            <?php echo $this->escape($value['region']);?>
+                        </th>
+                        <th class="number">
+                            <?php echo $this->escape($value['number']);?>
+                        </th>
+                        <th class="goods">
+                            <?php echo $this->escape($value['goods']);?>
+                        </th>
+                        <th>
+                            <?php echo $this->escape($value['created_at']);?>
+                        </th>
+                        <th>
+                            <?php $value['updated_at'] === null ? print $this->escape('更新なし') : print $this->escape($value['updated_at']);?>
+                        </th>
+                        <th>
+                            <button class="open" onclick="getValue(this)">変更</button>
+                        </th>
+                        <th>
+                            <form action="delete" method="post" class="deleteForm" onclick='return confirm("本当に削除しますか?");'>
+                                <input type="hidden" name="id" value="<?php echo $this->escape($value['id']);?>" />
+                                <input type="submit" class="delete" value="削除"/>
+                            </form>
+                        </th>
+                    </tr>
+            <?php
+                }
+            }
+            ?>
+        </table>
+        <form action="insert" method="post" id="insertForm">
+            <h4>新規登録フォーム</h4>
+            <input type="text" name="region" placeholder="地域名" />
+            <input type="text" name="number" placeholder="人口"/>
+            <input type="text" name="goods" placeholder="特産品"/>
+            <input type="submit" value="送信" />
+        </form>
+        <form action="select" method="post" id="selectForm">
+            <h4>検索フォーム</h4>
+            <label>
+                <span>地域名</span>
+                <input type="checkbox" name="condition[]" value="region" checked>
+            </label>
+            <label>
+                <span>人口</span>
+                <input type="checkbox" name="condition[]" value="number" checked>
+            </label>
+            <label>
+                <span>特産品</span>
+                <input type="checkbox" name="condition[]" value="goods" checked>
+            </label>
+            <input type="text" name="selectCondition" placeholder="検索条件を入力して下さい"/>
+            <input type="submit" value="検索" />
+        </form>
+        <form action="top" method="post">
+            <input type="submit" value="全検索"/>
+        </form>
+    </main>
+    <div id="overlay"></div>
+    <div id="modalWindow">
+        <h2>更新フォーム</h2>
+        <form action="update" method="post">
+            <input type="hidden" name="id" id="id"/>
+            <label>
+                <span>都道府県</span><br />
+                <input type="text" placeholder="都道府県" name="region" id="region" class="updates"/><br />
+            </label>
+            <label>
+                <span>人口</span><br />
+                <input type="text" placeholder="人口" name="number" id="number" class="updates"/><br />
+            </label>
+            <label >
+                <span>名産</span><br />
+                <input type="text" placeholder="名産" name="goods" id="goods" class="updates"/><br />
+            </label>
+            <input type="submit" value="変更" / />
+        </form>
+        <button id="close">Close</button>
+    </div>
+    <script src="../../application/views/scripts/top/js/jquery.min.js"></script>
+    <script src="../../application/views/scripts/top/js/top.js"></script>
+</body>
+<footer>
+    テスト用フッター <br />
+</footer>
+</html>

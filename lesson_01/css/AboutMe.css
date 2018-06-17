@@ -1,0 +1,117 @@
+/*ヘッダーとフッター以外の全体的なコンテンツを定義する*/
+main{
+  margin-left: 8%;
+  margin-right: 8%;
+　border: 10px solid #000;
+}
+/*ヘッダーを上に固定しスクロールしても動かないようにする*/
+div#header1{
+  background-color: #deb887;
+  top: 0;
+  width: 100%;
+  border: 1px solid #FFDDBC;
+  border-radius: 5%;
+  position: fixed;
+}
+/*ヘッダー内部のレイアウトを定める*/
+div#header2{
+ width: 20%;
+ height: auto;
+ color: #FFF;
+ margin-top: 10px;
+ margin-left:10%;
+ margin-bottom: 10px;
+ line-height: 2.0;/*文字の上下の行間を定義する*/
+}
+/*ヘッダー下部のレイアウト編集*/
+div#header3{
+  border-radius: 5%;
+  background: #a0522d;
+}
+/*ヘッダーのリンクデザインの適用*/
+li.hederText{
+  width: 45%;
+  display:inline-block;
+  border : 1px solid #FFF;
+  text-align: center;
+  color:#FFF;
+  margin-left: 2%;
+  border-radius: 5%;
+}
+/*ヘッダーのリンクの文字サイズ変更*/
+div.menueBotton{
+  font-size: 130%;
+}
+div.menueBotton:hover{
+  background: #cd853f;
+}
+a:link{
+  color:#FFFFFF;
+}
+a:visited{
+  color:#FFF;
+}
+/*ヘッダーの中の文字操作のcss*/
+p#sentence{
+  font-weight: bold;
+  text-align:center;
+  font-size: 100%;
+  letter-spacing : 40px;
+}
+/*左にコンテンツまとめるdivクラス*/
+div.leftsentence{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+/*左のコンテンツの枠組みを定義する*/
+div.leftPaper{
+    border: 5px double #333333;
+    background-color: #FFFFFF;
+    width: 60%;
+    border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+}
+/*見出しを定義するcss*/
+p.look{
+  width: 30%;
+  height: 7%;
+  background-color: #FFC993;
+  border-left: 6px solid #000000;
+  color: #000000;
+  font-weight: bold;
+  padding-top: 1%;
+  border-radius: 10%;
+}
+/*見出しの後の本文を定義するcss*/
+p.mozi{
+   font-size: 100%;
+   line-height: 2.0;/*文字の上下の行間を定義する*/
+   margin:5% 10%;
+}
+div#footer{
+  margin-bottom: 0px;
+  background-color: #000000;
+  color: #FFF;
+  height:8%;
+  width: 100%;
+  bottom: 0;
+}
+/*右に表示するプロフィールのcss*/
+div.rightprofile{
+  border : 1px solid #000000;
+  width: 20%;
+  box-shadow: 5px 5px 5px #AAA;
+  border-radius:10%;
+  background-color: #FFFFFF;
+  position: fixed;
+  right: 13%;
+  top: 40%;
+  text-align:center;
+  padding: 8px;
+}
+/*画像を定義するcss*/
+img.img{
+   width: 150px;
+   height: 150px;
+   transform: rotate(90deg);
+   border-radius: 300px;
+}
