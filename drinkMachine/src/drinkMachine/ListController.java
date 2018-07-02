@@ -1,7 +1,6 @@
 package drinkMachine;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -22,61 +21,44 @@ public class ListController extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher("/list.jsp").forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        try {
-            ItemBean itembean = new ItemBean();
-            request.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html;charset = UTF-8");
-            response.setCharacterEncoding("UTF-8"); // 文字コードの指定
-
-            String code      = request.getParameter("code");
-            String name      = request.getParameter("name");
-            String hot       = request.getParameter("hot");
-            String cool      = request.getParameter("cool");
-            String isSoldout = request.getParameter("isSoldout");
-            String isPR      = null;
-
-            if (hot.equals("1")) {
-                isPR = "1";
-            }
-            if (cool.equals("1")) {
-                isPR = "0";
-            }
-
-            ItemBean item = new ItemBean();
-            item.setCode(code);
-            item.setName(name);
-            item.setIsPR(isPR);
-            item.setIsSoldout(isSoldout);
-            request.getSession().setAttribute("serchitem",item);
-
-            T001_ITEMDao itemDao = new T001_ITEMDao();
-            String nextPage      = null; // ページ変遷のための変数
-            List<ItemBean>list  = new ArrayList<ItemBean>(); // リストの作成
-            list                 = itemDao.Search(code, name, isPR,isSoldout); // サーチメソッドから返ってきた値をリストに追加
-            request.getSession().setAttribute("cccc","0"); // リクエストスコープに保存
-            request.setAttribute("csv",list); // リクエストスコープに保存
-            request.getSession().setAttribute("sltm",list);
-
-            int listsize = list.size();
-            if (listsize == 0) {
-                request.setAttribute("kekka","条件に合う商品がありませんでした");//リクエストスコープに保存
-            }
-            if (list == null) {
-                nextPage = "/list.jsp";
-            } else {
-                nextPage = "/list.jsp";
-            }
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher("/list.jsp").forward(request,response);
-        } catch (SQLException e) {
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher("/list.jsp").forward(request,response);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+       
+        String code      = request.getParameter("code"); // 商品コード
+        String name      = request.getParameter("name");
+        String type       = request.getParameter("type");
+        String isSoldout = request.getParameter("isSoldout");
+        String isPR = null;
+        if (type.equals("1")) {
+            isPR = null;
+        } else if (type.equals("2")) {
+            isPR = "0";
+        } else {
+            isPR = "1";
         }
+        ItemBean item = new ItemBean();
+        item.setCode(code);
+        item.setName(name);
+        item.setIsPR(type);
+        item.setIsSoldout(isSoldout);
+        request.getSession().setAttribute("serchitem",item);
+
+        T001_ITEMDao itemDao = new T001_ITEMDao();
+        List<ItemBean>itemList  = new ArrayList<ItemBean>(); // リストの作成
+        itemList                = itemDao.Search(code, name, isPR,isSoldout); // サーチメソッドから返ってきた値をリストに追加
+        request.setAttribute("csv",itemList); // リクエストスコープに保存
+        request.getSession().setAttribute("itemList", itemList);
+        int listsize = itemList.size();
+        if (listsize == 0) {
+            request.setAttribute("kekka","条件に合う商品がありませんでした");//リクエストスコープに保存
+        }
+        
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher("/list.jsp").forward(request,response);
+       
     }
 }

@@ -24,7 +24,7 @@ request.setCharacterEncoding("UTF-8");
 <p>入金する金額を入力してください</p>
 <br>
 <br>
-<input type = "text" name = "name" id = "name" value = "">
+<input type = "text" name = "money" id = "name" value = "">
 <br>
 <br><input type = "submit" value = "入金する">
 </form>

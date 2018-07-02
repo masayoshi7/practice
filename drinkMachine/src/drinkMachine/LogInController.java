@@ -2,11 +2,14 @@ package drinkMachine;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import drinkMachine.Dao.AcountDao;
 
 public class LogInController extends HttpServlet
@@ -25,32 +28,25 @@ public class LogInController extends HttpServlet
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset = UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
         String name = request.getParameter("name");
         String pas  = request.getParameter("pas");
-        response.getContentType();
         AcountBean acountbean = new AcountBean();
-        try {
-            AcountDao acountdao = new AcountDao();
-            String kensaku      = acountdao.check(name, pas);
-            String  nextPage    = null;
-            if (kensaku.equals("1")) {
-                acountbean = acountdao.getAcount(name);
-                request.getSession().setAttribute("acount",acountbean);
-                nextPage = "/myPage.jsp";
-            } else {
-                request.setAttribute("error", "入力された情報は正しくありません");
-                nextPage = "/login.jsp";
-            }
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher(nextPage).forward(request,response); // 上記の結果によりページの移動を行う
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        AcountDao acountdao = new AcountDao();
+        String kensaku      = acountdao.check(name, pas);
+        String  nextPage    = null;
+        if (kensaku.equals("1")) {
+            acountbean = acountdao.getAcount(name);
+            HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(1800);
+            session.setAttribute("acount",acountbean);
+            nextPage = "/CartController";
+        } else {
+            request.setAttribute("error", "ユーザ名、又はパスワードが異なります");
+            nextPage = "/login.jsp";
         }
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher(nextPage).forward(request,response); // ä¸è¨ã®çµæã«ãããã¼ã¸ã®ç§»åãè¡ã
+
     }
 }

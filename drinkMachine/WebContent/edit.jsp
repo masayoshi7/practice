@@ -1,82 +1,192 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*,javax.naming.*,drinkMachine.*,drinkMachine.Dao.*"%>
 <%ItemBean itembean = (ItemBean)request.getAttribute("itembean");%>
 <%String msg = (String)request.getAttribute("msg");%>
-<html xml:lang="ja" lang="ja">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--
-<link type="text/css" rel="stylesheet" href="exValidation/css/style.css" />
--->
-<link type="text/css" rel="stylesheet" href="exValidation/css/exvalidation.css" />
-<title>編集画面</title>
-<link rel="stylesheet" type="text/css" href="./css/DrinkMachine.css" >
-</head>
-<body>
-<h1>商品変更</h1>
- <a href="./list.jsp">一覧</a><br><br>
-<%if(msg!=null){%>
-<p><%=msg %></p>
-<%} %>
-<form action="UpdateController" method="post" enctype = "multipart/form-data">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>商品登録</title>
+        <link rel="stylesheet" href="plugins/AdminLTE/css/bootstrap.min.css" type="text/css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/AdminLTE.min.css" type="text/css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/skins/skin-blue.css" type="text/css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet" type="text/css" href="./css/DrinkMachine.css" >
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <header class="main-header">
+                <a href="#" class="logo">
+                    <span class="logo-lg"><b>商品管理</b>画面</span>
+                    <span class="logo-mini"><b>S</b>KG</span>
+                </a>
+                <nav class="navbar navbar-static-top">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs">管理者</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <p>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <aside class="main-sidebar">
+        	    <!-- sidebar: style can be found in sidebar.less -->
+        	    <div class="sidebar">
+        	        <!-- Sidebar Menu -->
+        	        <ul class="sidebar-menu tree" data-widget="tree">
+        	            <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
+        	            <!-- Optionally, you can add icons to the links -->
+        	            <li class="treeview">
+        	                <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
+        	                <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
+        	                <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
+        	            </li>
+        	        </ul>
+        	    <!-- /.sidebar-menu -->
+        	    </div>
+        	<!-- /.sidebar -->
+        	</aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        商品管理
+                        <small class="text-font">Product management</small>
+                    </h1>
+                </section>
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">商品編集</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <section class="container">
+                                <% String errorMsg =(String)request.getAttribute("result"); %>
+                                <% if(errorMsg != null) { %>
+                                       <p><%=errorMsg %></p>
+                                <% } %>
+                                <form action = "UpdateController" method = "post" enctype = "multipart/form-data" class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-1 col-xs-10">
+                                            ※「<font class="text-danger">*</font>」は必須項目となります
+                                        </div>
+                                    </div>
 
-<table class = "table1">
-  <tbody><tr>
-    <th class="tr1">商品コード</th>
-    <td class="td1"><input type="text" id="code" name="code" readonly="readonly" value="<%=itembean.getCode()%>"></td>
-  </tr>
-  <tr>
-    <th class="tr1">商品名<sup><font color="#ff0000">*</font></sup></th>
 
-    <td class="td1"><input type="text" id="name" name="name" value="<%=itembean.getName()%>"></td>
-  </tr>
-  <tr>
-    <th class="tr1">金額<sup><font color="#ff0000">*</font></sup></th>
-    <td class="td1"><input type="text" id="unitPrice" name="unitPrice" value="<%=itembean.getPrice()%>"></td>
-  </tr>
-  <tr>
-    <th class="tr1">数量<sup><font color="#ff0000">*</font></sup></th>
-
-    <td class="td1"><input type="text" id="count" name="count" value="<%=itembean.getCount()%>"></td>
-  </tr>
-  <tr>
-    <th class="tr1">商品画像</th>
-    <td class="td1"><input type="file" id="image" name="image"src ="" value = "<%=itembean.getImage()%>"></td>
-  </tr>
-  <tr>
-    <th class="tr1">商品区分</th>
-<%String a = itembean.getIsPR();%>
-    <td class="td1"> <input type="hidden" name="isPR" value="0"><input type="checkbox" id="isPR" name="isPR" value="1" <%if(a.equals("1")){%> checked <%}%>{% endif %}>あったかい(チェックなし:つめたい)</input>
-    					 </td>
-  </tr>
-</tbody></table><br>
-<input type="submit" value="変更する">
-</form>
-
-<br>
-<font color="#ff0000">*</font>
-
-</body>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0"></script>
-<Script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.min.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.easing.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jQselectable.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exvalidation.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exchecker-ja.js"></script>
-<script type="text/javascript" >
-var validation = $("form")
-.exValidation({
-rules: {
-name: "chkrequired chkmax200",
-unitPrice: "chkrequired chknumonly chkmin1 chkmax4 chknum1000",
-count: "chkrequired chknumonly chkmin1 chkmax3 chknum100",
-filename: "chkfile"
-},
-stepValidation: true
-});
-</script>
-
-
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-2">商品名<sup><font class="text-danger">*</font></sup></label>
+                                        <div class="col-xs-5">
+                                            <input type="text" id="name" name="name" value="<%=itembean.getName()%>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-2">金額<sup><font class="text-danger">*</font></sup></label>
+                                        <div class="col-xs-5">
+                                            <input type="text" id="unitPrice" name="unitPrice" value="<%=itembean.getPrice()%>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-2">数量<sup><font class="text-danger">*</font></sup></label>
+                                        <div class="col-xs-5">
+                                            <input type="text" id="count" name="count" value="<%=itembean.getCount()%>">
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-2">商品画像</label>
+                                        <div class="col-xs-5">
+                                            <input type="file" id="image" name="image">
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-2">商品区分</label>
+                                        <div class="col-xs-5">
+                                            <input type="hidden" id="isPR" name="isPR" value="0">
+                                            <input type="checkbox" id="isPR" name="isPR" value="1"{% if item.isPR %} checked{% endif %}>あったかい(チェックなし:つめたい)
+                                        </div>
+                                    </div>
+                                        <div class="col-xs-offset-2 col-xs-10">
+                                            <button type = "submit" class="btn btn-success" onclick = "if(confirm('商品情報を登録しますか?')) {
+                                                                                    return true;
+                                                                              } else {
+                                                                                return false;
+                                                                            }"> 更新</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <br>
+                            </section>
+                        </div>
+                        <div class="box-footer">
+                        </div>
+                    </div>
+                </section>
+                <!-- end Main content -->
+            <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0.0
+                </div>
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- jQuery 2.1.4 -->
+        <script src="plugins/AdminLTE/js/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="plugins/AdminLTE/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="plugins/AdminLTE/js/demo.js"></script>
+    </body>
 </html>

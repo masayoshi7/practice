@@ -1,257 +1,247 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" %>
 <%@ page import="java.io.*,java.util.*,java.sql.*,javax.naming.*,drinkMachine.*,drinkMachine.Dao.*"%>
-<%List<ItemBean> list = (List<ItemBean>)session.getAttribute("sltm");%>
+<%List<ItemBean> itemList = (List<ItemBean>)session.getAttribute("itemList");%>
 <%String errorMsg = (String)request.getAttribute("kekka");%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/DtD/xhtml1-transitional.dtd">
-<link type="text/css" rel="stylesheet" href="C:\eclipse\workspece2\ jspServlet" />
-<html xml:lang="ja" lang="ja">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>検索画面</title>
-<link rel="stylesheet" type="text/css" href="./css/DrinkMachine.css" >
-</head>
-<body>
-<h1>商品一覧</h1>
-<%if(errorMsg != null){%>
-<p><%=errorMsg %></p>
-<%} %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>商品検索</title>
+        <link rel="stylesheet" href="plugins/AdminLTE/css/bootstrap.min.css" type="text/css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/AdminLTE.min.css" type="text/css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/skins/skin-blue.css" type="text/css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet" type="text/css" href="./css/DrinkMachine.css" >
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+	<header class="main-header">
+	    <a href="#" class="logo">
+	        <span class="logo-lg"><b>商品管理</b>画面</span>
+	        <span class="logo-mini"><b>S</b>KG</span>
+	    </a>
+	    <nav class="navbar navbar-static-top">
+	        <!-- Sidebar toggle button-->
+	        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+	            <span class="sr-only">Toggle navigation</span>
+	        </a>
+	        <div class="navbar-custom-menu">
+	            <ul class="nav navbar-nav">
+	                <li class="dropdown user user-menu">
+	                    <!--
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                        <span class="hidden-xs">さん</span>
+	                    </a>
+	                    -->
+	                    <ul class="dropdown-menu">
+	                        <!-- User image -->
+	                        <li class="user-header">
+	                            <p>
+	                            </p>
+	                        </li>
+	                        <!-- Menu Body -->
+	                        <li class="user-body">
+	                            <div class="row">
+	                                <div class="col-xs-4 text-center">
+	                                    <a href="#">Followers</a>
+	                                </div>
+	                                <div class="col-xs-4 text-center">
+	                                    <a href="#">Sales</a>
+	                                </div>
+	                                <div class="col-xs-4 text-center">
+	                                    <a href="#">Friends</a>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <!-- Menu Footer-->
+	                        <li class="user-footer">
+	                            <div class="pull-left">
+	                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+	                            </div>
+	                            <div class="pull-right">
+	                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </div>
+	    </nav>
+	</header>
 
-<a href="./add.jsp">追加</a><br>
-<form action = "CartController"  method = "post"><a href="javascript:q_code();">購入者画面をチェックする</a></form><br>
-<form action = "ListController"  method = "post">
-<br>
-<div>
-<table class = "table1">
-  <tbody><tr>
-    <th class="tr1">商品コード</th>
-    <td class="td1"><input type="text" name="code" value=""> </td>
-  </tr>
-  <tr>
-    <th class="tr1">商品名<sup><font color="#ff0000">*</font></sup></th>
+	<aside class="main-sidebar">
+	    <!-- sidebar: style can be found in sidebar.less -->
+	    <div class="sidebar">
+	        <!-- Sidebar Menu -->
+	        <ul class="sidebar-menu tree" data-widget="tree">
+	            <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
+	            <!-- Optionally, you can add icons to the links -->
+	            <li class="treeview">
+	                <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
+	                <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
+	                <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
+	            </li>
+	        </ul>
+	    <!-- /.sidebar-menu -->
+	    </div>
+	<!-- /.sidebar -->
+	</aside>
 
-    <td class="td1"><input type="text" name="name" value=""> </td>
-  </tr>
-  <tr>
-    <th class="tr1">他、検索条件</th>
-    <td class="td1">
-      <input type="checkbox" name="hot" value="1"{% if item.isPR %} checked{% endif %}>あったかい</input>
-      <input type="hidden" name="hot" value="0">
-      <input type="checkbox" name="cool" value="1"{% if item.isPR %} checked{% endif %}>つめたい</input>
-      <input type="hidden" name="cool" value="0">
-      <input type="checkbox" name="isSoldout" value="1"{% if item.isSoldout %} checked{% endif %}>売切れ商品</input>
-      <input type="hidden" name="isSoldout" value="0">
-    </td>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        商品管理
+                        <small class="text-font">Product management</small>
+                    </h1>
+                </section>
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">商品検索</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <section class="container">
+                                <%if(errorMsg != null){%>
+                                <p><%=errorMsg %></p>
+                                <%} %>
+                                <form action = "ListController"  method = "post" class="form-horizontal">
+                                    <div class="form-group col-xs-7">
+                                        <label for="ID">
+                                            商品ID
+                                        </label>
+                                        <input type="text" name="code" class="form-control col-ms-3" placeholder="商品ID">
+                                    </div>
+                                    <div class="form-group col-xs-7">
+                                        <label for="name">
+                                            商品名
+                                        </label>
+                                        <input type="text" class="form-control" name="name" placeholder="商品名">
+                                    </div>
+                                    <div class="check form-group col-xs-7">
+                                        <label>
+                                                商品価格
+                                        </label>
+                                        <div>
+                                            <input type="radio" name="type" value="1" checked>全ての商品
+                                            <input type="radio" name="type" value="2">おすすめ商品のみ
+                                            <input type="radio" name="type" value="3">通常商品のみ
+                                            <input type="checkbox" name="isSoldout" value="1">売り切れ商品
+                                            <input type="hidden" name="isSoldout" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <button type="submit" class="btn btn-primary">検索</button>
+                                    </div>
+                                </form>
+                                <br></br>
+                                <!--
+                                <form action = "CSVController"  method = "post" style="margin-top:15px;" class="col-xs-12"  enctype="multipart/form-data">
+                                    <input onclick = "addCsv()" class="btn btn-info" type="submit" value="csv追加">
+                                </form>
+                                -->
+                                <form action = "CSVGetController" style="margin-top:15px;" class="col-xs-12"  method = "post">
+                                    <input onclick = "getCsv()" class="btn btn-info" type="submit" value="csv出力">
+                                </form>
+                            </section>
+                        </div>
+                        <div class="box-footer">
+<%
 
-  </tr>
-</tbody></table>
-<br>
-</div>
-<div bgcolor="#999999" border="0">
+if (itemList != null) {
+    // 商品検索ループ
+    for (int i = 0; i < itemList.size(); i++) {
+        ItemBean selectedItm = itemList.get(i);
+ %>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>商品ID</th>
+                                            <th>商品名</th>
+                                            <th>商品価格</th>
+                                            <th>在庫数</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= selectedItm.getCode() %></td>
+                                            <td><%= selectedItm.getName() %></td>
+                                            <td><%= selectedItm.getPrice() %></td>
+                                            <td><%= selectedItm.getCount() %></td>
+                                            <td>
+                                                <a href="DelController?id=<%= selectedItm.getCode() %>" onclick="return confirm('本当に削除しますか？');">削除</a>
 
-<input type="submit" onclick="kensaku()" value="検索">
-</div>
-</form>
-
-
-<br>
-
-<form action = "CSVController"  method = "post"  enctype="multipart/form-data"><!--<input onclick = "addCsv()" type="submit" value="一括登録">--></form>
-
-<form action = "CSVAddController"  method = "post"><!--<input onclick = "addCsv2()" type="submit" value="一覧の情報をCSV出力">--></form>
-
-<br>
-<br>
-
-<%if(list != null)
-{
-
-for(int i= 0;i<list.size();i++)			//検索の値を出力するfor文
-  {
-  	ItemBean selectedItm = list.get(i);
-  	%>
-
-<table class = "table1">
-  <tbody><tr class="tr1">
-    <th class="tr1">&nbsp;</th>
-    <th class="tr1">&nbsp;</th>
-    <!--<th class="tr1">&nbsp;</th>-->
-    <th class="tr1" align="center">商品コード</th>
-    <th class="tr1" align="center">商品名</th>
-    <th class="tr1" align="center">金額</th>
-    <th class="tr1" align="center">数量</th>
-</tr>
-
-<tr class="tr1">
-    <!--<td class="td1"><form action = "ViewController"  method = "post"><a href="javascript:b_code(<%=selectedItm.getCode()%>);">詳細</a></form></td>-->
-    <td class="td1"><form action = "EditController"  method = "post"><a href="javascript:a_code(<%=selectedItm.getCode()%>);">編集</a></form></td>
-    <td class="td1"><form action = "DelController"  method = "post"><a href="javascript:sakuzyo_code(<%=selectedItm.getCode()%>);">削除</a></form></td>
-
-    <td class="td1"> <%= selectedItm.getCode() %></td>
-    <td class="td1"> <%= selectedItm.getName() %></td>
-	<td class="td1"> <%= selectedItm.getPrice() %></td>
-	<td class="td1"> <%= selectedItm.getCount() %></td>
-</tr>
-
-
-</table>
-<% }}%>
-</div>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function a_code(code)
-{
-	if(confirm("■商品データを変更しますか？")== false)
-		{
-		location.href = "./list.jsp";
-		return false;
-		}
-	else
-		{
-		var u = document.createElement('input');
-		u.type = 'hidden';
-		u.name = 'code';
-		u.value = code;
-		document.forms[4].appendChild(u);
-		document.forms[4].submit();
-		}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+<%
+    }
 }
-//-->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function sakuzyo_code(code)
-{
-	if(confirm("■商品情報を削除しますか？")== false)
-		{
-		location.href = "./list.jsp";
-		return false;
-		}
-	else
-		{
-		var a = document.createElement('input');
+%>
+                        </div>
+                    </div>
+                </section>
+                <!-- end Main content -->
+            <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- Main Footer -->
+            <jsp:include page="temp/footer.jsp"/>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- jQuery 2.1.4 -->
+        <script src="plugins/AdminLTE/js/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="plugins/AdminLTE/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="plugins/AdminLTE/js/demo.js"></script>
+        <SCRIPT type = "text/javascript" language = JavaScript>
 
-		a.type = 'hidden';
-		a.name = 'code';
-		a.value = code;
-		document.forms[5].appendChild(a);
-		document.forms[5].submit();
+        <SCRIPT type = "text/javascript" language = JavaScript>
+        <!--
+        function addCsv(){
+	        if (confirm("csvファイルを登録しますか？")) {
+				var cs = document.createElement('input');
+				cs.type = 'file';
+				cs.name = 'csv';
+				document.forms[2].appendChild(cs);
+				cs.click();
+				document.forms[2].submit();
 
-		}
-}
-//-->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function b_code(code)
-{
-	if(confirm("■商品情報を詳細閲覧しますか？")== false)
-		{
-		location.href = "./list.jsp";
-		return false;
-		}
-	else
-		{
-		var h = document.createElement('input');
-		h.type = 'hidden';
-		h.name = 'code';
-		h.value = code;
-		document.forms[4].appendChild(h);
-		document.forms[4].submit();
-		}
-}
-// -->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function q_code()
-{
+	        }
+        }
+        //-->
+        </SCRIPT>
+        <SCRIPT type = "text/javascript" language = JavaScript>
+        <!--
+        function getCsv(list){
+	        if (confirm("csvファイルを出力しますか")) {
+		        var hh = document.createElement('input');
 
-		var f = document.createElement('input');
-		f.type = 'hidden';
-		f.name = 'code';
+		        hh.type = 'hidden';
+		        hh.name = 'csv2';
 
-		document.forms[0].appendChild(f);
-		document.forms[0].submit();
+		        document.forms[3].appendChild(hh);
+		        document.forms[3].submit();
+	        }
 
-}
-// -->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function addCsv(){
-if(confirm("■一括登録を行いますか？") == false)
-{
-	location.href = "./list.jsp";
-	return false;
-}
-else
-{
-var cs = document.createElement('input');
-
-cs.type = 'file';
-cs.name = 'csv';
-
-document.forms[2].appendChild(cs);
-cs.click();
-document.forms[2].submit();
-
-
-}
-}
-//-->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function addCsv2(list){
-if(confirm("■商品情報をｃｓｖファイルに出力しますか？") == false)
-{
-
-	return;
-	location.href = "./list.jsp";
-}
-else
-{
-var hh = document.createElement('input');
-
-hh.type = 'hidden';
-hh.name = 'csv2';
-
-document.forms[3].appendChild(hh);
-document.forms[3].submit();
-
-
-}
-}
-//-->
-</SCRIPT>
-<SCRIPT type = "text/javascript" language = JavaScript>
-<!--
-function addAll()
-{
-	if(confirm("■全ての商品を検索しますか？")== false)
-		{
-		location.href = "./list.jsp";
-		return false;
-		}
-	else
-		{
-		var a = document.createElement('input');
-
-		a.type = 'hidden';
-		a.name = 'code';
-		a.value = code;
-		document.forms[2].appendChild(a);
-		document.forms[2].submit();
-
-		}
-}
-//-->
-</SCRIPT>
-
-
-
-</tbody>
-
-</body>
+        }
+        //-->
+        </SCRIPT>
+    </body>
 </html>

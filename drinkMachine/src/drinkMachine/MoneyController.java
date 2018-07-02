@@ -30,7 +30,7 @@ public class MoneyController extends HttpServlet
         response.setContentType("text/html;charset = UTF-8");
         response.setCharacterEncoding("UTF-8"); // 文字形式の設定
 
-        String money = request.getParameter("name");
+        String money = request.getParameter("money");
         response.getContentType();
         int addmoney        = Integer.parseInt(money); // 入力した金額を取得し、intに変換
         HttpSession session = request.getSession(false);
@@ -39,18 +39,11 @@ public class MoneyController extends HttpServlet
         int acountmoney     = acount.getMoney(); // データベースより所持金を取得
         int totalmoney      = addmoney + acountmoney; // データベースに挿入する金額
         acount.setMoney(totalmoney); // 合計金額をアカウントビーンにセット
-
-        try {
-            AcountDao acountdao = new AcountDao();
-            acountdao.acountUpdate(acount); // アカウント情報を更新
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            String nextPage            = "/myPage.jsp";
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher(nextPage).forward(request,response);
-        }
+       
+        AcountDao acountdao = new AcountDao();
+        acountdao.acountUpdate(acount); // アカウント情報を更新
+        String nextPage            = "/CartController";
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher(nextPage).forward(request,response);
     }
 }

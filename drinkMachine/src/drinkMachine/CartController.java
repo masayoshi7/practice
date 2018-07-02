@@ -21,25 +21,27 @@ public class CartController extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        T001_ITEMDao itemDao     = new T001_ITEMDao();
+        List<ItemBean> PRList    = itemDao.isPRItem();
+        itemDao                  = new T001_ITEMDao();
+        List<ItemBean> NomalList = itemDao.NomalItem();
 
+        request.getSession().setAttribute("PRItem",PRList); // セッションスコープにPRアイテムを保存
+        request.getSession().setAttribute("NormalItem",NomalList); // セッションスコープにノーマルアイテムを保存
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher("/cart.jsp").forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        T001_ITEMDao itemDao;
-        try {
-            itemDao        = new T001_ITEMDao();
-            List PRList    = itemDao.isPRItem();
-            List NomalList = itemDao.NomalItem();
+        T001_ITEMDao itemDao     = new T001_ITEMDao();
+        List<ItemBean> PRList    = itemDao.isPRItem();
+        itemDao                  = new T001_ITEMDao();
+        List<ItemBean> NomalList = itemDao.NomalItem();
 
-            request.getSession().setAttribute("PRItem",PRList); // セッションスコープにPRアイテムを保存
-            request.getSession().setAttribute("NormalItem",NomalList); // セッションスコープにノーマルアイテムを保存
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher("/cart.jsp").forward(request,response);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        request.getSession().setAttribute("PRItem",PRList); // セッションスコープにPRアイテムを保存
+        request.getSession().setAttribute("NormalItem",NomalList); // セッションスコープにノーマルアイテムを保存
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher("/cart.jsp").forward(request,response);
     }
 }

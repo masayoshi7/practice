@@ -53,9 +53,9 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>CartController2</display-name>
-		<servlet-name>CartController2</servlet-name>
-		<servlet-class>drinkMachine.CartController2</servlet-class>
+		<display-name>BuyController</display-name>
+		<servlet-name>BuyController</servlet-name>
+		<servlet-class>drinkMachine.BuyController</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -67,9 +67,9 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>CSVAddController</display-name>
-		<servlet-name>CSVAddController</servlet-name>
-		<servlet-class>drinkMachine.CSVAddController</servlet-class>
+		<display-name>CSVGetController</display-name>
+		<servlet-name>CSVGetController</servlet-name>
+		<servlet-class>drinkMachine.CSVGetController</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -142,16 +142,16 @@
 		<url-pattern>/CartController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>CartController2</servlet-name>
-		<url-pattern>/CartController2</url-pattern>
+		<servlet-name>BuyController</servlet-name>
+		<url-pattern>/BuyController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CSVController</servlet-name>
 		<url-pattern>/CSVController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>CSVAddController</servlet-name>
-		<url-pattern>/CSVAddController</url-pattern>
+		<servlet-name>CSVGetController</servlet-name>
+		<url-pattern>/CSVGetController</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AllController</servlet-name>

@@ -277,13 +277,6 @@ $printEnd   = $printStart - $printCount + 1; // printstart変数と実際に取�
                     </tbody>
                 </table>
             </form>
-            <div class="serchInput">
-                <form>
-                    <p>検索フォーム</p>
-                    <input type="text"  placeholder="検索条件を入力してください"/>
-                    <input type="submit" value="検索"/>
-                </form>
-            </div>
             <hr>
             <p><?php echo $printStart . '件目から' . $printEnd . '件目まで表示しています。'; ?></p>
             <?php

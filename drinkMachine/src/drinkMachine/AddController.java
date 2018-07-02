@@ -2,18 +2,20 @@ package drinkMachine;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import drinkMachine.Dao.T001_ITEMDao;
 
 public class AddController extends HttpServlet
@@ -37,7 +39,7 @@ public class AddController extends HttpServlet
         response.setCharacterEncoding("UTF-8");
 
         // アップロードファイルを格納するPATHを取得
-        String path = "C:\\ecrips_workspace\\jspServlet\\WebContent\\image";
+        String path = "/var/lib/tomcat/webapps/image";
         System.out.println(path);
 
         // ServletFileUploadオブジェクトを生成
@@ -56,7 +58,7 @@ public class AddController extends HttpServlet
         String isPR      = null;
         String image     = null;
         String fileName  = null;
-        List list;
+        List<ItemBean> list;
         /*
         * ファイルデータ(FileItemオブジェクト)を取得し、
         * Listオブジェクトとして返す
@@ -75,7 +77,7 @@ public class AddController extends HttpServlet
 
                     if ((fileName != null) && (!fileName.equals(""))) {
                         fileName = (new File(fileName)).getName(); // PATH名を除くファイル名のみを取得
-                        fItem.write(new File(path + "\\" + fileName)); // ファイルデータを指定されたファイルに書き出し
+                        fItem.write(new File(path + "/" + fileName)); // ファイルデータを指定されたファイルに書き出し
 
                         if (fItem.getFieldName().equals("image")) {
                             image = fItem.getName();
@@ -104,10 +106,10 @@ public class AddController extends HttpServlet
             e.printStackTrace();
         }
         int math = path.indexOf("image");
-        path     = path.substring(math) + "\\" + fileName;
-        try {
+        path     = "/image/" + fileName;
+
             T001_ITEMDao itemDao = new T001_ITEMDao();
-            String checkItem     = itemDao.checkAdd(name); // 重複していないかチェック
+            String checkItem     = itemDao.duplicationCheck(name); // 重複していないかチェック
             String nextPage      = null;
 
             // 重複している場合は登録画面に戻る
@@ -115,10 +117,10 @@ public class AddController extends HttpServlet
                 request.setAttribute("result", "登録した商品は既に存在しています");
                 request.setAttribute("kensaku",checkItem);
                 nextPage = "/add.jsp";
-            } else if (fileName.endsWith("jpg") || path.equals("image\\")) {
+            } else if (fileName.endsWith("jpg") || path.equals("image/")) {
 
                 // 値をデータベースに格納する
-                int result = itemDao.addItem(code,name, unitPrice, count, isPR, path);
+                int result = itemDao.registItem(name, unitPrice, count, isPR, path);
 
                 // 正しくデータベースに格納された場合商品一覧へ
                 if (result == 1) {
@@ -134,10 +136,6 @@ public class AddController extends HttpServlet
             }
             ServletContext application = getServletContext();
             application.getRequestDispatcher(nextPage).forward(request,response);// 上記の結果によりページの移動を行う
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 }

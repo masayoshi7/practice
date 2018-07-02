@@ -32,28 +32,22 @@ public class NewAcountController extends HttpServlet
         String name = request.getParameter("name");
         String pas  = request.getParameter("pas");
 
-        try {
-            AcountDao acountdao = new AcountDao();
-            int check           = 0;
-            String next         = null;
-            String count        = acountdao.checkName(name);
+        AcountDao acountdao = new AcountDao();
+        int check           = 0;
+        String next         = null;
+        String count        = acountdao.checkName(name);
 
-            if (count.equals("0")) {
-                check                 = acountdao.addAcount(name, pas);
-                AcountBean acountbean = new AcountBean();
-                acountbean            = acountdao.getAcount(name);
-                request.getSession().setAttribute("acount",acountbean);
-                next = "/myPage.jsp";
-            } else {
-                request.setAttribute("errorm","入力されたアカウント名は既に存在します");
-                next = "/NewAcount.jsp";
-            }
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher(next).forward(request,response);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (count.equals("0")) {
+            check                 = acountdao.addAcount(name, pas);
+            AcountBean acountbean = new AcountBean();
+            acountbean            = acountdao.getAcount(name);
+            request.getSession().setAttribute("acount",acountbean);
+            next = "/CartController";
+        } else {
+            request.setAttribute("errorm","入力されたアカウント名は既に存在します");
+            next = "/NewAcount.jsp";
         }
+        ServletContext application = getServletContext();
+        application.getRequestDispatcher(next).forward(request,response);
     }
 }

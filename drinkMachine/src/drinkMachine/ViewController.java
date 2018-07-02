@@ -29,24 +29,18 @@ public class ViewController extends HttpServlet
         response.setCharacterEncoding("UTF-8"); // 文字コードの指定
         String code       = request.getParameter("code");
         ItemBean itembean = new ItemBean();
-        try {
-            T001_ITEMDao itemDao = new T001_ITEMDao();
-            itembean             = itemDao.edit(code);
-            request.setAttribute("editDate", itembean); // リクエストスコープでビューに送る
+        T001_ITEMDao itemDao = new T001_ITEMDao();
+        itembean             = itemDao.edit(code);
+        request.setAttribute("editDate", itembean); // リクエストスコープでビューに送る
 
-            if (code == null) {
+        if (code == null) {
 
-                // TODO エラーメッセージを作成する
-                ServletContext application = getServletContext();
-                application.getRequestDispatcher("/list.jsp").forward(request,response);
-            } else {
-                ServletContext application = getServletContext();
-                application.getRequestDispatcher("/view.jsp").forward(request,response);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // TODO エラーメッセージを作成する
+            ServletContext application = getServletContext();
+            application.getRequestDispatcher("/list.jsp").forward(request,response);
+        } else {
+            ServletContext application = getServletContext();
+            application.getRequestDispatcher("/view.jsp").forward(request,response);
         }
     }
 }

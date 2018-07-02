@@ -7,16 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import drinkMachine.Dao.T001_ITEMDao;
 
 public class UpdateController extends HttpServlet
@@ -130,8 +133,8 @@ public class UpdateController extends HttpServlet
                 afterDate = resultSet.getString("RECORD_DATE");
             }
             if (afterDate != null && !equals("")) {
-                if (beforeDate.equals(afterDate)) {
-                    String updateResult = new T001_ITEMDao().UpDate(itembean); // 更新成功
+
+                    int updateResult = new T001_ITEMDao().UpDate(itembean); // 更新成功
                     HttpSession session = request.getSession(false);
                     ItemBean item       = (ItemBean)session.getAttribute("serchitem"); // 商品情報を再検索
                     String code1        = item.getCode();
@@ -148,7 +151,7 @@ public class UpdateController extends HttpServlet
                         list1 = dao.allSerch();
                         request.getSession().setAttribute("sltm",list1);
                     }
-                    if (updateResult.equals("0")) {
+                    if (updateResult == 0) {
                         request.setAttribute("kekka", "更新した商品は削除されています");
                     } else {
                             request.setAttribute("kekka", "商品を更新しました");
@@ -160,13 +163,7 @@ public class UpdateController extends HttpServlet
                     ServletContext application = getServletContext();
                     application.getRequestDispatcher("/list.jsp").forward(request,response);
                 }
-            } else if(afterDate == null || afterDate == "") {
-                request.setAttribute("errormessage","削除済みエラー");
-                ServletContext application = getServletContext();
-                application.getRequestDispatcher("/list.jsp").forward(request,response);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

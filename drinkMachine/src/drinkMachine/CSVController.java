@@ -132,9 +132,8 @@ public class CSVController extends HttpServlet
                     int csvlistSize = csvlist.size();
                     for (int i = 0; i < csvlistSize; i++) {
                         if (csvlist.get(i).getCode().equals("0")) {
-                            if (itemdao.checkAdd(csvlist.get(i).getName()).equals("0")) {
-                                itemdao.addItem((csvlist.get(i).getCode()) ,csvlist.get(i).getName(),
-                                                 csvlist.get(i).getPrice(), csvlist.get(i).getCount(), csvlist.get(i).getIsPR(),image1);
+                            if (itemdao.duplicationCheck(csvlist.get(i).getName()).equals("0")) {
+                                itemdao.registItem(csvlist.get(i).getName(),csvlist.get(i).getPrice(), csvlist.get(i).getCount(), csvlist.get(i).getIsPR(),image1);
                             } else {
                                 errorCount++;
                                 errorlist.add(i);

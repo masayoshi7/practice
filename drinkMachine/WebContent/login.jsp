@@ -1,64 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link href="plugins/AdminLTE/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="plugins/AdminLTE/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body class="login-page">
+    <div class="login-box">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xml:lang="ja" lang="ja">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>ログインフォーム</title>
-<link rel="stylesheet" type="text/css" href="./css/DrinkMachine2.css" >
-</head>
-<body background="image\sea109.jpg" style="background-repeat: no-repeat;background-size: cover;background-position: center center;background-attachment: fixed;">
+      <div class="login-logo">
+        <a href="">自動販売機ログイン</a>
+      </div><!-- /.login-logo -->
 
-<br>
-<br>
+      <div class="login-box-body">
+        <p class="login-box-msg">入力してください</p>
+         <% String errorMsg =(String)request.getAttribute("error"); %>
+         <% if(errorMsg != null) { %>
+                <p style="text-align:center;color:red;"><%=errorMsg %></p>
+         <% } %>
+        <form action="LogInController" method="post">
 
-<%
-//リクエストパラメータの文字コードを指定
-request.setCharacterEncoding("UTF-8");
-%>
-<%if(request.getAttribute("error") != null)
-{%>
-	<script type="text/javascript">
-<!--
-		alert("ユーザ名または、パスワードが正しくありません");
+          <!-- ユーザーネーム -->
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Username"/>
+          </div>
 
-//-->
-</script>
-<%
-}
-%>
+          <!-- パスワード -->
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="pas" id="pas" placeholder="Password" />
+          </div>
 
+          <!-- ボタン グリッドでセンタリング-->
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2" style="margin-bottom:10px;">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">ログイン</button>
+            </div><!-- /.col -->
+            <div class="col-xs-8 col-xs-offset-2">
+                <a href="./NewAcount.jsp"><button type="button" class="btn btn-primary btn-block btn-success">新規登録</button></a>
+            </div><!-- /.col -->
+          </div>
 
-<form action = "LogInController" method = "post" class = "a">
-<p>アカウント名を入力してください</p>
-<br>
-<br>
-<input class = "a" type = "text" name = "name" id = "name" placeholder="Username" value = "">
-<p>パスワードを入力してください</p>
-<br>
-<br>
-<input class = "a" type = "password" name = "pas" id = "pas" placeholder="Password" value = "">
-<br>
-<br><input class = "a" type = "submit" value = "ログイン">
-<a href="./NewAcount.jsp">新規登録</a>
-</form>
-</body>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0"></script>
-<Script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.min.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.easing.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jQselectable.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exvalidation.js"></script>
-<script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exchecker-ja.js"></script>
-<script type="text/javascript" >
-var validation = $("form")
-.exValidation({
-rules: {
-name: "chkrequired chknocaps  chkmax16",
-pas: "chkrequired chknocaps  chkmax16",
+        </form>
 
-},
-stepValidation: true
-});
-</script>
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/AdminLTE/js/jquery.min.js" type="text/javascript"></script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="plugins/AdminLTE/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="exValidation/jquery-validation-1.9.0"></script>
+    <Script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jquery.easing.js"></script>
+    <script type="text/javascript" src="exValidation/jquery-validation-1.9.0/jQselectable.js"></script>
+    <script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exvalidation.js"></script>
+    <script type="text/javascript" src="exValidation/jquery-validation-1.9.0/exchecker-ja.js"></script>
+    <script type="text/javascript" >
+    var validation = $("form")
+    .exValidation({
+    rules: {
+    name: "chkrequired chknocaps  chkmax16",
+    pas: "chkrequired chknocaps  chkmax16",
+
+    },
+    stepValidation: true
+    });
+    </script>
+  </body>
 </html>

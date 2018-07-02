@@ -30,14 +30,9 @@ public class AcountDelContoroller extends HttpServlet {
 
         String no = request.getParameter("Nom");
 
-        try {
-            AcountDao dao = new AcountDao();
-            dao.AcountDel(no);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
+        AcountDao dao = new AcountDao();
+        dao.AcountDel(no);
         String nextPage            = "/login.jsp";
         ServletContext application = getServletContext();
 
