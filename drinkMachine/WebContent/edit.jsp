@@ -73,22 +73,22 @@
                 </nav>
             </header>
             <aside class="main-sidebar">
-        	    <!-- sidebar: style can be found in sidebar.less -->
-        	    <div class="sidebar">
-        	        <!-- Sidebar Menu -->
-        	        <ul class="sidebar-menu tree" data-widget="tree">
-        	            <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
-        	            <!-- Optionally, you can add icons to the links -->
-        	            <li class="treeview">
-        	                <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
-        	                <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
-        	                <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
-        	            </li>
-        	        </ul>
-        	    <!-- /.sidebar-menu -->
-        	    </div>
-        	<!-- /.sidebar -->
-        	</aside>
+                <!-- sidebar: style can be found in sidebar.less -->
+                <div class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu tree" data-widget="tree">
+                        <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
+                        <!-- Optionally, you can add icons to the links -->
+                        <li class="treeview">
+                            <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
+                            <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
+                            <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
+                        </li>
+                    </ul>
+                <!-- /.sidebar-menu -->
+                </div>
+            <!-- /.sidebar -->
+            </aside>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -107,18 +107,17 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <section class="container">
-                                <% String errorMsg =(String)request.getAttribute("result"); %>
-                                <% if(errorMsg != null) { %>
-                                       <p><%=errorMsg %></p>
-                                <% } %>
+<%
+String errorMsg =(String)request.getAttribute("result");
+if (errorMsg != null) { %>
+                                <p><%=errorMsg %></p>
+<% } %>
                                 <form action = "UpdateController" method = "post" enctype = "multipart/form-data" class="form-horizontal">
                                     <div class="form-group">
                                         <div class="col-xs-offset-1 col-xs-10">
                                             ※「<font class="text-danger">*</font>」は必須項目となります
                                         </div>
                                     </div>
-
-
                                     <div class="form-group">
                                         <label class="control-label col-xs-2">商品名<sup><font class="text-danger">*</font></sup></label>
                                         <div class="col-xs-5">
@@ -153,11 +152,11 @@
                                         </div>
                                     </div>
                                         <div class="col-xs-offset-2 col-xs-10">
-                                            <button type = "submit" class="btn btn-success" onclick = "if(confirm('商品情報を登録しますか?')) {
-                                                                                    return true;
-                                                                              } else {
-                                                                                return false;
-                                                                            }"> 更新</button>
+                                            <button type = "submit" class="btn btn-success" onclick = "if (confirm('商品情報を登録しますか?')) {
+                                                                                                            return true;
+                                                                                                        } else {
+                                                                                                            return false;
+                                                                                                        }"> 更新</button>
                                         </div>
                                     </div>
                                 </form>

@@ -59,22 +59,16 @@ if (PRList != null) {
         if (outputItemCount % 5 == 0) {
 %>
                         <tr>
-<%
-}
-%>
+<%　    }　%>
                         <td  bgcolor="#ffe4b5">
                             <table border = "1" width="180" height="180">
                                 <tbody>
                                     <tr>
                                         <td align="center" rowspan="1"><img width="160" height="160"  alt="" src="<%=PRItem.getImage()%>"
-                                            <%
-                                            if (PRItem.getCount().equals("0")) {
-                                            %>
-                                            class="example1">
+                                            <%　if (PRItem.getCount().equals("0")) {　%
+                                                class="example1">
                                             <p class = "soldout_style"></p>
-                                            <%
-                                            }
-                                            %>
+                                            <%　}　%>
                                         </td>
                                     </tr>
                                     <tr>
@@ -84,29 +78,25 @@ if (PRList != null) {
                                         <td align="center">
                                             <input type="hidden" class="code" value="<%=PRItem.getCode()%>">
                                             <input type="hidden" class="count" value="<%=PRItem.getCount()%>">
-                                            <input class="buy" style="color:#fff;background-color:#FFA500;font-size:15;width:150px;height:30px;border-radius:25px;box-shadow:2px 2px #555;padding-bottom:0px;"
-                                                                        type="button" value="<%=PRItem.getPrice()%>円"
-                                            <%
-                                            if (PRItem.getCount().equals("0")) {
-                                            %>
-                                            disabled value = "売り切れです"
-                                            <%
-                                            }
-                                            %>
-
+                                            <input class="buy"　type="button" value="<%=PRItem.getPrice()%>円"
+                                            style="color:#fff;background-color:#FFA500;font-size:15;width:150px;height:30px;border-radius:25px;box-shadow:2px 2px #555;padding-bottom:0px;"
+                                            <%　if (PRItem.getCount().equals("0")) {　%>
+                                                disabled value = "売り切れです"
+                                            <%　}　%>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </td>
-<%outputItemCount++;
-if (outputItemCount % 5 == 0) {
+<%
+        outputItemCount++;
+        if (outputItemCount % 5 == 0) {
 %>
                         </tr>
 <%
-}
-    }
         }
+    }
+}
 %>
                         <tr>
                             <th colspan="5" bgcolor="white" style="text-align:center;">≪通常商品≫</th>
@@ -177,11 +167,14 @@ if (outputItemCount % 5 == 0) {
         <!-- AdminLTE for demo purposes -->
         <script src="plugins/AdminLTE/js/demo.js"></script>
         <script type="text/javascript">
-            $(function(){
+            $(function() {
+
+                // アカウントメニューの開閉処理
                 $("#acountDetail").on("click",function(){
                     $("#acountMenu").toggle();
                 });
 
+                // 購入ボタン押下時の購入処理
                 $(".buy").on("click",function(){
                     if (confirm("商品を購入しますか？")) {
                         var code   = $(this).prevAll(".code").val();

@@ -21,77 +21,77 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-	<header class="main-header">
-	    <a href="#" class="logo">
-	        <span class="logo-lg"><b>商品管理</b>画面</span>
-	        <span class="logo-mini"><b>S</b>KG</span>
-	    </a>
-	    <nav class="navbar navbar-static-top">
-	        <!-- Sidebar toggle button-->
-	        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-	            <span class="sr-only">Toggle navigation</span>
-	        </a>
-	        <div class="navbar-custom-menu">
-	            <ul class="nav navbar-nav">
-	                <li class="dropdown user user-menu">
-	                    <!--
-	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	                        <span class="hidden-xs">さん</span>
-	                    </a>
-	                    -->
-	                    <ul class="dropdown-menu">
-	                        <!-- User image -->
-	                        <li class="user-header">
-	                            <p>
-	                            </p>
-	                        </li>
-	                        <!-- Menu Body -->
-	                        <li class="user-body">
-	                            <div class="row">
-	                                <div class="col-xs-4 text-center">
-	                                    <a href="#">Followers</a>
-	                                </div>
-	                                <div class="col-xs-4 text-center">
-	                                    <a href="#">Sales</a>
-	                                </div>
-	                                <div class="col-xs-4 text-center">
-	                                    <a href="#">Friends</a>
-	                                </div>
-	                            </div>
-	                        </li>
-	                        <!-- Menu Footer-->
-	                        <li class="user-footer">
-	                            <div class="pull-left">
-	                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-	                            </div>
-	                            <div class="pull-right">
-	                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
-	                            </div>
-	                        </li>
-	                    </ul>
-	                </li>
-	            </ul>
-	        </div>
-	    </nav>
-	</header>
+    <header class="main-header">
+        <a href="#" class="logo">
+            <span class="logo-lg"><b>商品管理</b>画面</span>
+            <span class="logo-mini"><b>S</b>KG</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <!--
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">さん</span>
+                        </a>
+                        -->
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <p>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-	<aside class="main-sidebar">
-	    <!-- sidebar: style can be found in sidebar.less -->
-	    <div class="sidebar">
-	        <!-- Sidebar Menu -->
-	        <ul class="sidebar-menu tree" data-widget="tree">
-	            <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
-	            <!-- Optionally, you can add icons to the links -->
-	            <li class="treeview">
-	                <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
-	                <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
-	                <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
-	            </li>
-	        </ul>
-	    <!-- /.sidebar-menu -->
-	    </div>
-	<!-- /.sidebar -->
-	</aside>
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu tree" data-widget="tree">
+                <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
+                <!-- Optionally, you can add icons to the links -->
+                <li class="treeview">
+                    <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
+                    <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
+                    <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
+                </li>
+            </ul>
+        <!-- /.sidebar-menu -->
+        </div>
+    <!-- /.sidebar -->
+    </aside>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -111,9 +111,9 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <section class="container">
-                                <%if(errorMsg != null){%>
+<% if (errorMsg != null) { %>
                                 <p><%=errorMsg %></p>
-                                <%} %>
+<% } %>
                                 <form action = "ListController"  method = "post" class="form-horizontal">
                                     <div class="form-group col-xs-7">
                                         <label for="ID">
@@ -159,7 +159,8 @@
 
 if (itemList != null) {
     // 商品検索ループ
-    for (int i = 0; i < itemList.size(); i++) {
+    int itemListSize = itemList.size();
+    for (int i = 0; i < itemListSize; i++) {
         ItemBean selectedItm = itemList.get(i);
  %>
                             <div class="box-body table-responsive no-padding">
@@ -181,7 +182,6 @@ if (itemList != null) {
                                             <td><%= selectedItm.getCount() %></td>
                                             <td>
                                                 <a href="DelController?id=<%= selectedItm.getCode() %>" onclick="return confirm('本当に削除しますか？');">削除</a>
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -210,38 +210,29 @@ if (itemList != null) {
         <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="plugins/AdminLTE/js/demo.js"></script>
-        <SCRIPT type = "text/javascript" language = JavaScript>
+        <SCRIPT type="text/javascript" language="JavaScript">
+            /*
+            function addCsv(){
+                if (confirm("csvファイルを登録しますか？")) {
+                    var cs = document.createElement('input');
+                    cs.type = 'file';
+                    cs.name = 'csv';
+                    document.forms[2].appendChild(cs);
+                    cs.click();
+                    document.forms[2].submit();
+                }
+            }
+            }*/
 
-        <SCRIPT type = "text/javascript" language = JavaScript>
-        <!--
-        function addCsv(){
-	        if (confirm("csvファイルを登録しますか？")) {
-				var cs = document.createElement('input');
-				cs.type = 'file';
-				cs.name = 'csv';
-				document.forms[2].appendChild(cs);
-				cs.click();
-				document.forms[2].submit();
-
-	        }
-        }
-        //-->
-        </SCRIPT>
-        <SCRIPT type = "text/javascript" language = JavaScript>
-        <!--
-        function getCsv(list){
-	        if (confirm("csvファイルを出力しますか")) {
-		        var hh = document.createElement('input');
-
-		        hh.type = 'hidden';
-		        hh.name = 'csv2';
-
-		        document.forms[3].appendChild(hh);
-		        document.forms[3].submit();
-	        }
-
-        }
-        //-->
+            function getCsv(list){
+                if (confirm("csvファイルを出力しますか")) {
+                    var hh = document.createElement('input');
+                    hh.type = 'hidden';
+                    hh.name = 'csv2';
+                    document.forms[3].appendChild(hh);
+                    document.forms[3].submit();
+                }
+            }
         </SCRIPT>
     </body>
 </html>

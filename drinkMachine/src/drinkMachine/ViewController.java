@@ -27,8 +27,8 @@ public class ViewController extends HttpServlet
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset = UTF-8");
         response.setCharacterEncoding("UTF-8"); // 文字コードの指定
-        String code       = request.getParameter("code");
-        ItemBean itembean = new ItemBean();
+        String code          = request.getParameter("code");
+        ItemBean itembean    = new ItemBean();
         T001_ITEMDao itemDao = new T001_ITEMDao();
         itembean             = itemDao.edit(code);
         request.setAttribute("editDate", itembean); // リクエストスコープでビューに送る
