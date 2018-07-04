@@ -112,7 +112,7 @@ String errorMsg =(String)request.getAttribute("result");
 if (errorMsg != null) { %>
                                 <p><%=errorMsg %></p>
 <% } %>
-                                <form action = "UpdateController" method = "post" enctype = "multipart/form-data" class="form-horizontal">
+                                <form action = "UpdateController" method = "post" class="form-horizontal">
                                     <div class="form-group">
                                         <div class="col-xs-offset-1 col-xs-10">
                                             ※「<font class="text-danger">*</font>」は必須項目となります
@@ -121,6 +121,7 @@ if (errorMsg != null) { %>
                                     <div class="form-group">
                                         <label class="control-label col-xs-2">商品名<sup><font class="text-danger">*</font></sup></label>
                                         <div class="col-xs-5">
+                                        	<input type="hidden" id="code" name="code" value="<%=itembean.getCode()%>">
                                             <input type="text" id="name" name="name" value="<%=itembean.getName()%>">
                                         </div>
                                     </div>
@@ -148,11 +149,11 @@ if (errorMsg != null) { %>
                                         <label class="control-label col-xs-2">商品区分</label>
                                         <div class="col-xs-5">
                                             <input type="hidden" id="isPR" name="isPR" value="0">
-                                            <input type="checkbox" id="isPR" name="isPR" value="1"{% if item.isPR %} checked{% endif %}>あったかい(チェックなし:つめたい)
+                                            <input type="checkbox" id="isPR" name="isPR" value="1"  <% if (itembean.getIsPR().equals("1")) { %> checked<% } %> >おすすめ商品
                                         </div>
                                     </div>
                                         <div class="col-xs-offset-2 col-xs-10">
-                                            <button type = "submit" class="btn btn-success" onclick = "if (confirm('商品情報を登録しますか?')) {
+                                            <button type = "submit" class="btn btn-success" onclick = "if (confirm('商品情報を更新しますか?')) {
                                                                                                             return true;
                                                                                                         } else {
                                                                                                             return false;

@@ -207,12 +207,12 @@ public class T001_ITEMDao
      * 商品更新の際に表示する情報を取得する
      *
      * @param  ItemBean 更新する情報の入った商品情報クラス
-     *
-     * @return ItemBean 商品情報のクラスを返す
+     * @return ItemBean 更新結果を返す
      */
     public int UpDate(ItemBean itembean)
     {
-        String name = itembean.getName(); // 更新対象の名前
+        String name = itembean.getCount(); // 更新対象の名前
+        System.out.println(itembean.getCount());
         String soldOutFlag = "0";
         PreparedStatement pstmt;
 
@@ -225,48 +225,52 @@ public class T001_ITEMDao
         String sql;
         int updateResult = 0;
         try {
+        	/*
             T001_ITEMDao itemdao = new T001_ITEMDao();
-            String ItemCount             = itemdao.duplicationCheck(name);
 
-            if (ItemCount.equals("1")) {
-            	//画像パスが入力された場合にパスを更新する
-                if (!(itembean.getImage().equals("image\\\\"))) {
-                    sql = "UPDATE t001_item SET" +
-                          "ITEM_NM = ?," +
-                          "UNIT_PRICE = ?," +
-                          "STOCK_COUNT = ?," +
-                          "IS_SOLD_OUT = ?," +
-                          "IS_PR= ?," +
-                          "ITEM_IMAGE_FILE_PATH = ?,"+
-                          "RECORD_DATE = CURRENT_TIMESTAMP " +
-                          "WHERE ITEM_NO = ?";
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, itembean.getName());
-                    pstmt.setString(2, itembean.getPrice());
-                    pstmt.setString(3, itembean.getCount());
-                    pstmt.setString(4, soldOutFlag);
-                    pstmt.setString(5, itembean.getImage());
-                    pstmt.setString(6, itembean.getCode());
+        	//画像パスが入力された場合にパスを更新する
+            if (itembean.getImage() != null) {
+                sql = "UPDATE t001_item SET" +
+                      "ITEM_NM = ?," +
+                      "UNIT_PRICE = ?," +
+                      "STOCK_COUNT = ?," +
+                      "IS_SOLD_OUT = ?," +
+                      "IS_PR= ?," +
+                      "ITEM_IMAGE_FILE_PATH = ?,"+
+                      "RECORD_DATE = CURRENT_TIMESTAMP " +
+                      "WHERE ITEM_NO = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, itembean.getName());
+                pstmt.setString(2, itembean.getPrice());
+                pstmt.setString(3, itembean.getCount());
+                pstmt.setString(4, soldOutFlag);
+                pstmt.setString(5, itembean.getIsPR());
+                pstmt.setString(6, itembean.getImage());
+                pstmt.setString(7, itembean.getCode());
 
-                // 画像パスが入力された場合画像パスも更新する
-                } else {
-                     sql = "UPDATE t001_item SET " +
-                           "ITEM_NM = ?," +
-                           "UNIT_PRICE = ?, " +
-                           "STOCK_COUNT = ?," +
-                           "IS_SOLD_OUT = ?," +
-                           "IS_PR= ?, " +
-                           "RECORD_DATE = CURRENT_TIMESTAMP " +
-                           "WHERE ITEM_NO = ?";
-                     pstmt = conn.prepareStatement(sql);
-                     pstmt.setString(1, itembean.getName());
-                     pstmt.setString(2, itembean.getPrice());
-                     pstmt.setString(3, itembean.getCount());
-                     pstmt.setString(4, soldOutFlag);
-                     pstmt.setString(5, itembean.getCode());
-                }
-                updateResult = pstmt.executeUpdate(sql);
-            }
+			*/
+            // 画像パスが入力されなかった場合画像パスは更新しない
+            //} else {
+            	System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbababab");
+                 sql =   "UPDATE t001_item SET " +
+                         "ITEM_NM = ? ," +
+                         "UNIT_PRICE = ? ," +
+                         "STOCK_COUNT = ? ," +
+                         "IS_SOLD_OUT = ? ," +
+                         "IS_PR = ? , " +
+                         "RECORD_DATE = CURRENT_TIMESTAMP " +
+                         "WHERE ITEM_NO = ? ";
+
+                 pstmt = conn.prepareStatement(sql);
+                 pstmt.setString(1, itembean.getName());
+                 pstmt.setString(2, itembean.getPrice());
+                 pstmt.setString(3, itembean.getCount());
+                 pstmt.setString(4, soldOutFlag);
+                 pstmt.setString(5, itembean.getIsPR());
+                 pstmt.setString(6, itembean.getCode());
+            //}
+            updateResult = pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

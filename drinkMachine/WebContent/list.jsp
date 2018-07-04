@@ -112,7 +112,11 @@
                         <div class="box-body">
                             <section class="container">
 <% if (errorMsg != null) { %>
-                                <p><%=errorMsg %></p>
+								<div class=" alert  alert-dismissible" id="warningMsg"">
+		                            <ul>
+		                                <%=errorMsg %>
+		                            </ul>
+                        		</div>
 <% } %>
                                 <form action = "ListController"  method = "post" class="form-horizontal">
                                     <div class="form-group col-xs-7">
@@ -164,14 +168,14 @@ if (itemList != null) {
         ItemBean selectedItm = itemList.get(i);
  %>
                             <div class="box-body table-responsive no-padding">
-                                <table class="table">
+                                <table class="table" style="table-layout:fixed;">
                                     <thead>
                                         <tr>
-                                            <th>商品ID</th>
-                                            <th>商品名</th>
-                                            <th>商品価格</th>
-                                            <th>在庫数</th>
-                                            <th></th>
+                                            <th style="width: 10px;">商品ID</th>
+                                            <th style="width: 30px;">商品名</th>
+                                            <th style="width: 15px;">商品価格</th>
+                                            <th style="width: 15px;">在庫数</th>
+                                            <th style="width: 20px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -181,7 +185,9 @@ if (itemList != null) {
                                             <td><%= selectedItm.getPrice() %></td>
                                             <td><%= selectedItm.getCount() %></td>
                                             <td>
-                                                <a href="DelController?id=<%= selectedItm.getCode() %>" onclick="return confirm('本当に削除しますか？');">削除</a>
+                                                <a href="DelController?id=<%= selectedItm.getCode() %>" onclick="return confirm('本当に削除しますか？');"><button class="btn btn-danger">削除</button></a>
+                                                <a href="EditController?id=<%= selectedItm.getCode() %>" ><button class="btn btn-primary">変更</button></a>
+                                                <a href="ViewController?id=<%= selectedItm.getCode() %>"><button class="btn btn-info">詳細</button></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -210,7 +216,7 @@ if (itemList != null) {
         <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="plugins/AdminLTE/js/demo.js"></script>
-        <SCRIPT type="text/javascript" language="JavaScript">
+        <SCRIPT type="text/javascript">
             /*
             function addCsv(){
                 if (confirm("csvファイルを登録しますか？")) {

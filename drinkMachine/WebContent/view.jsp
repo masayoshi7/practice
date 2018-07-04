@@ -1,43 +1,164 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*,javax.naming.*,drinkMachine.*,drinkMachine.Dao.*"%>
-<%ItemBean itembean = (ItemBean)request.getAttribute("editDate");%>
-<html xml:lang="ja" lang="ja">
+<%ItemBean itembean = (ItemBean)request.getAttribute("viewDate");%>
+<!DOCTYPE html>
+<html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>詳細画面</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>商品詳細</title>
+        <link rel="stylesheet" href="plugins/AdminLTE/css/bootstrap.min.css" type="text/css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/AdminLTE.min.css" type="text/css">
+        <link rel="stylesheet" href="plugins/AdminLTE/css/skins/skin-blue.css" type="text/css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" type="text/css" href="./css/DrinkMachine.css" >
     </head>
-    <body>
-        <h1>商品照会</h1>
-        <a href="./list.jsp">一覧</a>
-        <br>
-        <table class = "table1">
-            <tbody>
-                <tr>
-                    <th class="tr1">商品コード<sup><font color="#ff0000">*</font></sup></th>
-                    <td class="td1"><%=itembean.getCode()%></td>
-                </tr>
-                <tr>
-                    <th class="tr1">商品名<sup><font color="#ff0000">*</font></sup></th>
-                    <td class="td1"><%=itembean.getName()%></td>
-                </tr>
-                <tr>
-                    <th class="tr1">金額<sup><font color="#ff0000">*</font></sup></th>
-                    <td class="td1"><%=itembean.getPrice()%></td>
-                </tr>
-                <tr>
-                    <th class="tr1">数量<sup><font color="#ff0000">*</font></sup></th>
-                    <td class="td1"><%=itembean.getCount()%></td>
-                </tr>
-                <tr>
-                    <th class="tr1">商品画像</th>
-                    <td class="td1"><img width="80" height="80" alt="" src="<%=itembean.getImage()%>"></td>
-                </tr>
-                <tr>
-                    <th class="tr1">商品区分</th>
-                    <td class="td1"><input type="checkbox" name="isPR" disabled="disabled" value="True"<%if(a.equals("1")){ %> checked <%} %>{% endif %}>おすすめ商品</input></td>
-                </tr>
-            </tbody>
-        </table>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <header class="main-header">
+            <a href="#" class="logo">
+                <span class="logo-lg"><b>商品管理</b>画面</span>
+                <span class="logo-mini"><b>S</b>KG</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <!--
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="hidden-xs">さん</span>
+                            </a>
+                            -->
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <p>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <li class="header text-font">MAIN&nbsp;NAVIGATION</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="treeview">
+                        <li><a href="./add.jsp"><i class="fa fa-circle-o"></i>商品追加</a></a></li>
+                        <li><a href="./list.jsp"><i class="fa fa-circle-o"></i>商品検索</a></a></li>
+                        <li><a href="<%=request.getContextPath().toString()%>/CartController"><i class="fa fa-circle-o"></i>商品販売画面</a></a></li>
+                    </li>
+                </ul>
+            <!-- /.sidebar-menu -->
+            </div>
+        <!-- /.sidebar -->
+        </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                                                商品管理
+                        <small class="text-font">Product management</small>
+                    </h1>
+                </section>
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">商品詳細</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <section class="container">
+                            	<section class="itemInfo" style=" font-size:20px;">
+	                            	<div>
+			                            <label>
+		                                	商品名
+		                                </label>
+		                                <p><%=itembean.getName()%></p>
+		                            </div>
+		                            <div>
+			                            <label>
+		                                	価格
+		                                </label>
+		                                <p><%=itembean.getPrice()%></p>
+		                            </div>
+		                            <div>
+			                            <label>
+		                                	在庫数
+		                                </label>
+		                                <p><%=itembean.getCount()%></p>
+		                            </div>
+                            	</section>
+                            	<div>
+                            		<label>
+		                                商品画像
+		                            </label>
+                            		<img src="<%=itembean.getImage()%>" alt="itemimage" width="150px" height="200px">
+                            	</div>
+                            </section>
+                        </div>
+                        <div class="box-footer">
+                        </div>
+                    </div>
+                </section>
+                <!-- end Main content -->
+            <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0.0
+                </div>
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- jQuery 2.1.4 -->
+        <script src="plugins/AdminLTE/js/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="plugins/AdminLTE/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="plugins/AdminLTE/js/demo.js"></script>
     </body>
 </html>

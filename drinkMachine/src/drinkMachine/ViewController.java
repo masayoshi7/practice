@@ -1,12 +1,13 @@
 package drinkMachine;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import drinkMachine.Dao.T001_ITEMDao;
 
 public class ViewController extends HttpServlet
@@ -20,27 +21,25 @@ public class ViewController extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+       String code          = request.getParameter("id");
+       ItemBean itembean    = new ItemBean();
+       T001_ITEMDao itemDao = new T001_ITEMDao();
+       itembean             = itemDao.edit(code);
+       request.setAttribute("viewDate", itembean); // リクエストスコープでビューに送る
+
+       if (code == null) {
+
+           // TODO エラーメッセージを作成する
+           ServletContext application = getServletContext();
+           application.getRequestDispatcher("/list.jsp").forward(request,response);
+       } else {
+           ServletContext application = getServletContext();
+           application.getRequestDispatcher("/view.jsp").forward(request,response);
+       }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset = UTF-8");
-        response.setCharacterEncoding("UTF-8"); // 文字コードの指定
-        String code          = request.getParameter("code");
-        ItemBean itembean    = new ItemBean();
-        T001_ITEMDao itemDao = new T001_ITEMDao();
-        itembean             = itemDao.edit(code);
-        request.setAttribute("editDate", itembean); // リクエストスコープでビューに送る
 
-        if (code == null) {
-
-            // TODO エラーメッセージを作成する
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher("/list.jsp").forward(request,response);
-        } else {
-            ServletContext application = getServletContext();
-            application.getRequestDispatcher("/view.jsp").forward(request,response);
-        }
     }
 }

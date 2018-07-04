@@ -59,16 +59,16 @@ if (PRList != null) {
         if (outputItemCount % 5 == 0) {
 %>
                         <tr>
-<%　    }　%>
+<%      } %>
                         <td  bgcolor="#ffe4b5">
                             <table border = "1" width="180" height="180">
                                 <tbody>
                                     <tr>
                                         <td align="center" rowspan="1"><img width="160" height="160"  alt="" src="<%=PRItem.getImage()%>"
-                                            <%　if (PRItem.getCount().equals("0")) {　%
+                                            <% if (PRItem.getCount().equals("0")) { %>
                                                 class="example1">
                                             <p class = "soldout_style"></p>
-                                            <%　}　%>
+                                            <% } %>
                                         </td>
                                     </tr>
                                     <tr>
@@ -78,11 +78,11 @@ if (PRList != null) {
                                         <td align="center">
                                             <input type="hidden" class="code" value="<%=PRItem.getCode()%>">
                                             <input type="hidden" class="count" value="<%=PRItem.getCount()%>">
-                                            <input class="buy"　type="button" value="<%=PRItem.getPrice()%>円"
+                                            <input class="buy" type="button" value="<%=PRItem.getPrice()%>円"
                                             style="color:#fff;background-color:#FFA500;font-size:15;width:150px;height:30px;border-radius:25px;box-shadow:2px 2px #555;padding-bottom:0px;"
-                                            <%　if (PRItem.getCount().equals("0")) {　%>
-                                                disabled value = "売り切れです"
-                                            <%　}　%>
+                                            <% if (PRItem.getCount().equals("0")) { %>
+                                                 disabled value = "売り切れです"
+                                            <% } %>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -142,8 +142,8 @@ if (NomalList != null) {
                             </table>
                         </td>
 <%
-outputItemCount++;
-if (outputItemCount % 5 == 0) {
+		outputItemCount++;
+		if (outputItemCount % 5 == 0) {
 %>
                     </tr>
 <%

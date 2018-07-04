@@ -3,11 +3,13 @@ package drinkMachine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import drinkMachine.Dao.T001_ITEMDao;
 
 public class ListController extends HttpServlet
@@ -27,7 +29,7 @@ public class ListController extends HttpServlet
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-       
+
         String code      = request.getParameter("code"); // 商品コード
         String name      = request.getParameter("name");
         String type       = request.getParameter("type");
@@ -36,9 +38,11 @@ public class ListController extends HttpServlet
         if (type.equals("1")) {
             isPR = null;
         } else if (type.equals("2")) {
-            isPR = "0";
-        } else {
+
+        	// おすすめ商品フラグを立てる
             isPR = "1";
+        } else {
+            isPR = "0";
         }
         ItemBean item = new ItemBean();
         item.setCode(code);
@@ -56,9 +60,9 @@ public class ListController extends HttpServlet
         if (listsize == 0) {
             request.setAttribute("kekka","条件に合う商品がありませんでした");//リクエストスコープに保存
         }
-        
+
         ServletContext application = getServletContext();
         application.getRequestDispatcher("/list.jsp").forward(request,response);
-       
+
     }
 }
