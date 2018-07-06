@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="check form-group col-xs-7">
                                         <label>
-                                                商品価格
+                                                検索対象
                                         </label>
                                         <div>
                                             <input type="radio" name="type" value="1" checked>全ての商品
@@ -146,8 +146,12 @@
                                     <div class="col-xs-10">
                                         <button type="submit" class="btn btn-primary">検索</button>
                                     </div>
+                                     <div class="col-xs-10">
+                                        <p>※商品名、商品IDを省略すると検索対象のデータをすべて取得します</p>
+                                    </div>
                                 </form>
-                                <br></br>
+                                <br>
+                                <br>
                                 <!--
                                 <form action = "CSVController"  method = "post" style="margin-top:15px;" class="col-xs-12"  enctype="multipart/form-data">
                                     <input onclick = "addCsv()" class="btn btn-info" type="submit" value="csv追加">
@@ -155,6 +159,8 @@
                                 -->
                                 <form action = "CSVGetController" style="margin-top:15px;" class="col-xs-12"  method = "post">
                                     <input onclick = "getCsv()" class="btn btn-info" type="submit" value="csv出力">
+                                    <br>
+                                    <p>※現在検索している、商品のリストをcsv形式で入手できます</p>
                                 </form>
                             </section>
                         </div>

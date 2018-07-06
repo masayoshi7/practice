@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-2">商品画像</label>
+                                        <label class="control-label col-xs-2">商品画像<sup><font class="text-danger">*</font></sup></label>
                                         <div class="col-xs-5">
                                             <input type="file" id="image" name="image">
                                         </div>

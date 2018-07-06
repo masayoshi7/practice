@@ -139,7 +139,6 @@ public class T001_ITEMDao
             if (isPR != null) {
                 pstmt.setString(3, isPR);
             }
-
             ResultSet resultSet = pstmt.executeQuery(); // SQL文の実行
             while (resultSet.next()) {
                 ItemBean selectedItm = new ItemBean(); // javabeansのインスタンス化

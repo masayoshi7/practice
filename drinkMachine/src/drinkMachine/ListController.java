@@ -29,6 +29,7 @@ public class ListController extends HttpServlet
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+    	request.setCharacterEncoding("utf-8");
 
         String code      = request.getParameter("code"); // 商品コード
         String name      = request.getParameter("name");

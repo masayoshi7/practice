@@ -1,6 +1,7 @@
 package drinkMachine;
 
 import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,14 +19,14 @@ public class LogOutController extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+    	  request.getSession().setAttribute("acount",null);
+          String nextPage            = "/login.jsp";
+          ServletContext application = getServletContext();
+          application.getRequestDispatcher(nextPage).forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        request.getSession().setAttribute("acount",null);
-        String nextPage            = "/login.jsp";
-        ServletContext application = getServletContext();
-        application.getRequestDispatcher(nextPage).forward(request,response);
+
     }
 }
